@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#set -x
+VERSION=${1:-v0.5.0}
+TARGET_ISO=rancheros-$VERSION.iso
+if [ ! -f $TARGET_ISO ]
+then
+    echo downloading $VERSION of the rancheros.iso...
+    wget https://github.com/rancher/os/releases/download/$VERSION/rancheros.iso -O $TARGET_ISO
+    echo got it...
+fi
+ls -l $TARGET_ISO
+echo docker-machine create -d virtualbox --virtualbox-boot2docker-url $TARGET_ISO rancheros
